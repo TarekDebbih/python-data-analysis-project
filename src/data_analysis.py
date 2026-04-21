@@ -10,4 +10,16 @@ def load_cleaned_dataset(file_path: Path) -> pd.DataFrame:
 
 def summarize_dataset(dataframe: pd.DataFrame) -> pd.DataFrame:
     """generate descriptive statistics for the numeric columns"""
-    return dataframe;describe()
+    return dataframe.describe()
+
+def main() -> None:
+    """Load the cleaned dataset and display descriptive statistics."""
+    file_path = PROCESSED_DATA_DIR / "clean_power_demand.csv"
+    dataset = load_cleaned_dataset(file_path)
+
+    summary = summarize_dataset(dataset)
+    print(summary)
+
+
+if __name__ == "__main__":
+    main()
