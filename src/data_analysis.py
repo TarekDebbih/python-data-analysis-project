@@ -34,6 +34,16 @@ def plot_power_demand_over_time(dataframe: pd.DataFrame) -> None:
     plt.tight_layout()
     plt.show()
 
+def plot_temperature_vs_power_demand(dataframe: pd.DataFrame) -> None:
+    """Plot temperature against power demand."""
+    plt.figure(figsize=(8, 5))
+    plt.scatter(dataframe["temperature"], dataframe["power_demand"])
+    plt.title("Temperature vs Power Demand")
+    plt.xlabel("Temperature")
+    plt.ylabel("Power Demand")
+    plt.tight_layout()
+    plt.show()
+
 def main() -> None:
     """Load the cleaned dataset and display descriptive statistics."""
     # Main analysis flow:
