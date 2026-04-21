@@ -18,5 +18,5 @@ def fill_missing_numeric_values(dataframe: pd.DataFrame) -> pd.DataFrame:
     """Fill missing values in numeric columns with the mean."""
     cleaned_dataframe = dataframe.copy()
     numeric_columns = cleaned_dataframe.select_dtypes(include=["number"]).columns
-    cleaned_dataframe[numeric_columns] = cleaned_dataframe[numeric_columns].fillna(cleaned_dataframe[numeric_columns].mean())
+    cleaned_dataframe[numeric_columns] = cleaned_dataframe[numeric_columns].fillna(cleaned_dataframe[numeric_columns].median())
     return cleaned_dataframe
