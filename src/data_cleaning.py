@@ -14,3 +14,9 @@ def remove_duplicate_rows(dataframe: pd.DataFrame) -> pd.DataFrame:
     """Remove duplicate rows from the DataFrame."""
     return dataframe.drop_duplicates().copy()
 
+def fill_missing_numeric_values(dataframe: pd.DataFrame) -> pd.DataFrame:
+    """Fill missing values in numeric columns with the mean."""
+    cleaned_dataframe = dataframe.copy()
+    numeric_columns = cleaned_dataframe.select_dtypes(include=["number"]).columns
+    cleaned_dataframe[numeric_columns] = cleaned_dataframe[numeric_columns].fillna(cleaned_dataframe[numeric_columns].mean())
+    return cleaned_dataframe
