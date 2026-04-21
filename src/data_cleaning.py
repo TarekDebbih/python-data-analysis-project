@@ -25,3 +25,19 @@ def save_cleaned_dataset(dataframe: pd.DataFrame, output_path: Path) -> None:
     """Save the cleaned dataset to a CSV file."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     dataframe.to_csv(output_path, index=False)
+
+def main() -> None:
+    """Load, clean, and save the power demand dataset."""
+    input_path = RAW_DATA_DIR / "synthetic_power_demand.csv"
+    output_path = PROCESSED_DATA_DIR / "clean_power_demand.csv"
+
+    dataset = load_raw_dataset(input_path)
+    dataset = remove_duplicate_rows(dataset)
+    dataset = fill_missing_numeric_values(dataset)
+    save_cleaned_dataset(dataset, output_path)
+
+    print(f"Cleaned dataset saved to {output_path}")
+
+
+if __name__ == "__main__":
+    main()
