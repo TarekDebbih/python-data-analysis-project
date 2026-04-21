@@ -61,3 +61,8 @@ def generate_synthetic_power_demand_data(
             "power_demand": power_demand,
         }
     )
+
+def save_dataset_to_csv(dataframe: pd.DataFrame, output_path: Path) -> None:
+    """Save a DataFrame to a CSV file."""
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    dataframe.to_csv(output_path, index=False)
