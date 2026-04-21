@@ -6,20 +6,26 @@ PROCESSED_DATA_DIR = BASE_DIR / "data" / "processed"
 
 def load_cleaned_dataset(file_path: Path) -> pd.DataFrame:
     """Load the cleaned dataset from a CSV file."""
+    # Load the cleaned CSV file into a pandas DataFrame.
+    # Parse the "date" column as real dates.
     return pd.read_csv(file_path, parse_dates=["date"])
 
 def summarize_numeric_columns(dataframe: pd.DataFrame) -> pd.DataFrame:
     """Return descriptive statistics for numeric columns only."""
+    # Keep only numeric columns and return basic statistics.
     numeric_dataframe = dataframe.select_dtypes(include=["number"])
     return numeric_dataframe.describe()
 
 def compute_correlation_matrix(dataframe: pd.DataFrame) -> pd.DataFrame:
     """Compute correlations between numeric columns."""
+    # Compute correlations between numeric features.
     numeric_dataframe = dataframe.select_dtypes(include=["number"])
     return numeric_dataframe.corr()
 
 def main() -> None:
     """Load the cleaned dataset and display descriptive statistics."""
+    # Main analysis flow:
+    # load the dataset, show statistics, then show correlations.
     file_path = PROCESSED_DATA_DIR / "clean_power_demand.csv"
     dataset = load_cleaned_dataset(file_path)
 
