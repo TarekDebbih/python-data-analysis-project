@@ -26,6 +26,10 @@ def main() -> None:
     summary = summarize_numeric_columns(dataset)
     print(summary)
 
+    correlation_matrix = compute_correlation_matrix(dataset)
+    print()
+    print(correlation_matrix)
+
 
 if __name__ == "__main__":
     main()
