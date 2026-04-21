@@ -13,6 +13,11 @@ def summarize_numeric_columns(dataframe: pd.DataFrame) -> pd.DataFrame:
     numeric_dataframe = dataframe.select_dtypes(include=["number"])
     return numeric_dataframe.describe()
 
+def compute_correlation_matrix(dataframe: pd.DataFrame) -> pd.DataFrame:
+    """Compute correlations between numeric columns."""
+    numeric_dataframe = dataframe.select_dtypes(include=["number"])
+    return numeric_dataframe.corr()
+
 def main() -> None:
     """Load the cleaned dataset and display descriptive statistics."""
     file_path = PROCESSED_DATA_DIR / "clean_power_demand.csv"
