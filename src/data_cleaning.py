@@ -20,3 +20,8 @@ def fill_missing_numeric_values(dataframe: pd.DataFrame) -> pd.DataFrame:
     numeric_columns = cleaned_dataframe.select_dtypes(include=["number"]).columns
     cleaned_dataframe[numeric_columns] = cleaned_dataframe[numeric_columns].fillna(cleaned_dataframe[numeric_columns].median())
     return cleaned_dataframe
+
+def save_cleaned_dataset(dataframe: pd.DataFrame, output_path: Path) -> None:
+    """Save the cleaned dataset to a CSV file."""
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    dataframe.to_csv(output_path, index=False)
