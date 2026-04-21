@@ -15,30 +15,49 @@ import numpy as np
 import pandas as pd
 
 
-def generate_synthetic_time_series_data(
+def generate_synthetic_power_demand_data(
     num_days: int = 180,
     random_seed: int = 42,
 ) -> pd.DataFrame:
-    """Generate a synthetic multivariate time series dataset."""
+    """Generate a synthetic multivariate time series dataset for power demand forecasting."""
     rng = np.random.default_rng(random_seed)
 
     dates = pd.date_range(start="2024-01-01", periods=num_days, freq="D")
-    trend = np.linspace(50, 80, num_days)
-    seasonality = 10 * np.sin(np.linspace(0, 3 * np.pi, num_days))
-    noise = rng.normal(loc=0, scale=3, size=num_days)
+    day_of_year = np.arange(num_days)
+    day_of_week = dates.dayofweek
 
-    marketing_spend = rng.normal(loc=1000, scale=120, size=num_days)
-    website_visits = 200 + 0.4 * marketing_spend + rng.normal(loc=0, scale=25, size=num_days)
-    temperature = 15 + 10 * np.sin(np.linspace(0, 2 * np.pi, num_days)) + rng.normal(loc=0, scale=2, size=num_days)
+    temperature = 12 + 10 * np.sin(2 * np.pi * day_of_year / 365) + rng.normal(0, 2, num_days)
+    humidity = 65 - 0.4 * temperature + rng.normal(0, 5, num_days)
 
-    sales = trend + seasonality + 0.015 * marketing_spend + 0.05 * website_visits + noise
+    is_weekend = (day_of_week >= 5).astype(int)
+    is_holiday = np.zeros(num_days, dtype=int)
+
+    holiday_indices = rng.choice(num_days, size=max(5, num_days // 30), replace=False)
+    is_holiday[holiday_indices] = 1
+
+    base_demand = 300
+    yearly_seasonality = 40 * np.cos(2 * np.pi * day_of_year / 365)
+    temperature_effect = np.maximum(0, 18 - temperature) * 6 + np.maximum(0, temperature - 22) * 4
+    weekend_effect = -35 * is_weekend
+    holiday_effect = -50 * is_holiday
+    noise = rng.normal(0, 8, num_days)
+
+    power_demand = (
+        base_demand
+        + yearly_seasonality
+        + temperature_effect
+        + weekend_effect
+        + holiday_effect
+        + noise
+    )
 
     return pd.DataFrame(
         {
             "date": dates,
-            "marketing_spend": marketing_spend,
-            "website_visits": website_visits,
             "temperature": temperature,
-            "sales": sales,
+            "humidity": humidity,
+            "is_weekend": is_weekend,
+            "is_holiday": is_holiday,
+            "power_demand": power_demand,
         }
     )
