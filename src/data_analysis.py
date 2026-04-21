@@ -1,5 +1,6 @@
 from pathlib import Path
 import pandas as pd
+import matplotlib.pyplot as plt
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROCESSED_DATA_DIR = BASE_DIR / "data" / "processed"
@@ -46,6 +47,8 @@ def main() -> None:
     correlation_matrix = compute_correlation_matrix(dataset)
     print()
     print(correlation_matrix)
+
+    plot_power_demand_over_time(dataset)
 
 
 if __name__ == "__main__":
