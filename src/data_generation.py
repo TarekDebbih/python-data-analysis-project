@@ -66,3 +66,15 @@ def save_dataset_to_csv(dataframe: pd.DataFrame, output_path: Path) -> None:
     """Save a DataFrame to a CSV file."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     dataframe.to_csv(output_path, index=False)
+
+def main() -> None:
+    """Generate and save the synthetic power demand dataset."""
+    create_data_directories()
+    dataset = generate_synthetic_power_demand_data()
+    output_path = RAW_DATA_DIR / "synthetic_power_demand.csv"
+    save_dataset_to_csv(dataset, output_path)
+    print(f"Dataset saved to {output_path}")
+
+
+if __name__ == "__main__":
+    main()
