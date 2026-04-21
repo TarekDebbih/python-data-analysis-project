@@ -22,6 +22,17 @@ def compute_correlation_matrix(dataframe: pd.DataFrame) -> pd.DataFrame:
     numeric_dataframe = dataframe.select_dtypes(include=["number"])
     return numeric_dataframe.corr()
 
+def plot_power_demand_over_time(dataframe: pd.DataFrame) -> None:
+    """Plot power demand over time."""
+    plt.figure(figsize=(10, 5))
+    plt.plot(dataframe["date"], dataframe["power_demand"])
+    plt.title("Power Demand Over Time")
+    plt.xlabel("Date")
+    plt.ylabel("Power Demand")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
 def main() -> None:
     """Load the cleaned dataset and display descriptive statistics."""
     # Main analysis flow:
