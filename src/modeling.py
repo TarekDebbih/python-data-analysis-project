@@ -39,3 +39,11 @@ def train_linear_regression_model(
     model = LinearRegression()
     model.fit(X_train, y_train)
     return model
+
+def predict_with_model(
+    model: LinearRegression,
+    X_test: pd.DataFrame,
+) -> pd.Series:
+    """Generate predictions from the trained model."""
+    predictions = model.predict(X_test)
+    return pd.Series(predictions, index=X_test.index, name="predicted_power_demand")
