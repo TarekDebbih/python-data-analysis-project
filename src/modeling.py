@@ -84,6 +84,22 @@ def add_time_features(dataframe: pd.DataFrame) -> pd.DataFrame:
     enriched_dataframe["day_of_year"] = enriched_dataframe["date"].dt.dayofyear
     return enriched_dataframe
 
+def build_prediction_comparison(
+    y_true: pd.Series,
+    y_pred: pd.Series,
+) -> pd.DataFrame:
+    """Build a comparison table between actual and predicted values."""
+    comparison = pd.DataFrame(
+        {
+            "actual_power_demand": y_true,
+            "predicted_power_demand": y_pred,
+        }
+    )
+    comparison["absolute_error"] = (
+        comparison["actual_power_demand"] - comparison["predicted_power_demand"]
+    ).abs()
+    return comparison
+
 
 def main() -> None:
     """Run the full modeling pipeline."""
