@@ -13,22 +13,23 @@ def load_modeling_dataset(file_path: Path) -> pd.DataFrame:
     """Load the cleaned dataset for modeling."""
     return pd.read_csv(file_path, parse_dates=["date"])
 
+
 def select_features_and_target(dataframe: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
     """Split the dataset into input features and target variable."""
     feature_columns = [
-    "temperature",
-    "humidity",
-    "is_weekend",
-    "is_holiday",
-    "month",
-    "day_of_year",
-]
+        "temperature",
+        "humidity",
+        "is_weekend",
+        "is_holiday",
+        "day_of_year",
+    ]
     target_column = "power_demand"
 
     X = dataframe[feature_columns].copy()
     y = dataframe[target_column].copy()
 
     return X, y
+
 
 def split_train_test(
     X: pd.DataFrame,
@@ -39,6 +40,7 @@ def split_train_test(
     """Split features and target into training and testing sets."""
     return train_test_split(X, y, test_size=test_size, random_state=random_seed)
 
+
 def train_linear_regression_model(
     X_train: pd.DataFrame,
     y_train: pd.Series,
@@ -48,6 +50,7 @@ def train_linear_regression_model(
     model.fit(X_train, y_train)
     return model
 
+
 def predict_with_model(
     model: LinearRegression,
     X_test: pd.DataFrame,
@@ -55,6 +58,7 @@ def predict_with_model(
     """Generate predictions from the trained model."""
     predictions = model.predict(X_test)
     return pd.Series(predictions, index=X_test.index, name="predicted_power_demand")
+
 
 def evaluate_regression_model(
     y_true: pd.Series,
@@ -73,12 +77,13 @@ def evaluate_regression_model(
         "r2": r2,
     }
 
+
 def add_time_features(dataframe: pd.DataFrame) -> pd.DataFrame:
     """Add simple time-based features for modeling."""
     enriched_dataframe = dataframe.copy()
-    enriched_dataframe["month"] = enriched_dataframe["date"].dt.month
     enriched_dataframe["day_of_year"] = enriched_dataframe["date"].dt.dayofyear
     return enriched_dataframe
+
 
 def main() -> None:
     """Run the full modeling pipeline."""
