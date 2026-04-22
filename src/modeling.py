@@ -15,7 +15,14 @@ def load_modeling_dataset(file_path: Path) -> pd.DataFrame:
 
 def select_features_and_target(dataframe: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
     """Split the dataset into input features and target variable."""
-    feature_columns = ["temperature", "humidity", "is_weekend", "is_holiday"]
+    feature_columns = [
+    "temperature",
+    "humidity",
+    "is_weekend",
+    "is_holiday",
+    "month",
+    "day_of_year",
+]
     target_column = "power_demand"
 
     X = dataframe[feature_columns].copy()
@@ -66,10 +73,18 @@ def evaluate_regression_model(
         "r2": r2,
     }
 
+def add_time_features(dataframe: pd.DataFrame) -> pd.DataFrame:
+    """Add simple time-based features for modeling."""
+    enriched_dataframe = dataframe.copy()
+    enriched_dataframe["month"] = enriched_dataframe["date"].dt.month
+    enriched_dataframe["day_of_year"] = enriched_dataframe["date"].dt.dayofyear
+    return enriched_dataframe
+
 def main() -> None:
     """Run the full modeling pipeline."""
     file_path = PROCESSED_DATA_DIR / "clean_power_demand.csv"
     dataset = load_modeling_dataset(file_path)
+    dataset = add_time_features(dataset)
 
     X, y = select_features_and_target(dataset)
     X_train, X_test, y_train, y_test = split_train_test(X, y)
