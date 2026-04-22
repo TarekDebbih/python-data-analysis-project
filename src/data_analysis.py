@@ -24,6 +24,13 @@ def compute_correlation_matrix(dataframe: pd.DataFrame) -> pd.DataFrame:
     numeric_dataframe = dataframe.select_dtypes(include=["number"])
     return numeric_dataframe.corr()
 
+def save_current_figure(filename: str) -> None:
+    """Save the current matplotlib figure to the outputs/figures directory."""
+    OUTPUT_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    plt.tight_layout()
+    plt.savefig(OUTPUT_FIGURES_DIR / filename)
+    plt.close()
+
 def plot_power_demand_over_time(dataframe: pd.DataFrame) -> None:
     """Plot power demand over time."""
     plt.figure(figsize=(10, 5))
@@ -32,10 +39,7 @@ def plot_power_demand_over_time(dataframe: pd.DataFrame) -> None:
     plt.xlabel("Date")
     plt.ylabel("Power Demand")
     plt.xticks(rotation=45)
-    plt.tight_layout()
-    OUTPUT_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
-    plt.savefig(OUTPUT_FIGURES_DIR / "power_demand_over_time.png")
-    plt.close()
+    save_current_figure("power_demand_over_time.png")
 
 def plot_temperature_vs_power_demand(dataframe: pd.DataFrame) -> None:
     """Plot temperature against power demand."""
@@ -44,10 +48,7 @@ def plot_temperature_vs_power_demand(dataframe: pd.DataFrame) -> None:
     plt.title("Temperature vs Power Demand")
     plt.xlabel("Temperature")
     plt.ylabel("Power Demand")
-    plt.tight_layout()
-    OUTPUT_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
-    plt.savefig(OUTPUT_FIGURES_DIR / "temperature_vs_power_demand.png")
-    plt.close()
+    save_current_figure("temperature_vs_power_demand.png")
 
 def plot_average_power_demand_by_temperature(dataframe: pd.DataFrame) -> None:
     """Plot average power demand by rounded temperature."""
@@ -65,10 +66,7 @@ def plot_average_power_demand_by_temperature(dataframe: pd.DataFrame) -> None:
     plt.title("Average Power Demand by Temperature")
     plt.xlabel("Rounded Temperature")
     plt.ylabel("Average Power Demand")
-    plt.tight_layout()
-    OUTPUT_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
-    plt.savefig(OUTPUT_FIGURES_DIR / "average_power_demand_by_temperature.png")
-    plt.close()
+    save_current_figure("average_power_demand_by_temperature.png")
 
 def main() -> None:
     """Load the cleaned dataset and display descriptive statistics."""
@@ -85,11 +83,8 @@ def main() -> None:
     print(correlation_matrix)
 
     plot_power_demand_over_time(dataset)
-
     plot_temperature_vs_power_demand(dataset)
-
     plot_average_power_demand_by_temperature(dataset)
-
 
 if __name__ == "__main__":
     main()
