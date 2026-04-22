@@ -60,3 +60,17 @@ python3 src/data_cleaning.py
 python3 src/data_analysis.py
 python3 src/modeling.py
 ```
+
+## Conclusion
+
+This project demonstrates a complete and structured workflow for electric power demand forecasting:
+- data simulation
+- data cleaning
+- exploratory analysis
+- baseline modeling
+- model evaluation
+- iterative improvement
+
+The final model was significantly improved by adding a time-based feature (`day_of_year`), which helped better capture seasonality in the data.
+
+This project is especially relevant for contexts involving multivariate time series, forecasting, and decision-support tools.
