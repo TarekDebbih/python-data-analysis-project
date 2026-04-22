@@ -1,5 +1,6 @@
 from pathlib import Path
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 import pandas as pd
 
 
@@ -29,3 +30,12 @@ def split_train_test(
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """Split features and target into training and testing sets."""
     return train_test_split(X, y, test_size=test_size, random_state=random_seed)
+
+def train_linear_regression_model(
+    X_train: pd.DataFrame,
+    y_train: pd.Series,
+) -> LinearRegression:
+    """Train a linear regression model on the training data."""
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    return model
