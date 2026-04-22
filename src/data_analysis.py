@@ -44,6 +44,25 @@ def plot_temperature_vs_power_demand(dataframe: pd.DataFrame) -> None:
     plt.tight_layout()
     plt.show()
 
+def plot_average_power_demand_by_temperature(dataframe: pd.DataFrame) -> None:
+    """Plot average power demand by rounded temperature."""
+    temperature_summary = (
+        dataframe.assign(rounded_temperature=dataframe["temperature"].round())
+        .groupby("rounded_temperature", as_index=False)["power_demand"]
+        .mean()
+    )
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(
+        temperature_summary["rounded_temperature"],
+        temperature_summary["power_demand"],
+    )
+    plt.title("Average Power Demand by Temperature")
+    plt.xlabel("Rounded Temperature")
+    plt.ylabel("Average Power Demand")
+    plt.tight_layout()
+    plt.show()
+
 def main() -> None:
     """Load the cleaned dataset and display descriptive statistics."""
     # Main analysis flow:
