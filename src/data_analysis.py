@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROCESSED_DATA_DIR = BASE_DIR / "data" / "processed"
+OUTPUT_FIGURES_DIR = BASE_DIR / "outputs" / "figures"
 
 def load_cleaned_dataset(file_path: Path) -> pd.DataFrame:
     """Load the cleaned dataset from a CSV file."""
@@ -42,6 +43,8 @@ def plot_temperature_vs_power_demand(dataframe: pd.DataFrame) -> None:
     plt.xlabel("Temperature")
     plt.ylabel("Power Demand")
     plt.tight_layout()
+    OUTPUT_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    plt.savefig(OUTPUT_FIGURES_DIR / "temperature_vs_power_demand.png")
     plt.show()
 
 def plot_average_power_demand_by_temperature(dataframe: pd.DataFrame) -> None:
@@ -61,6 +64,8 @@ def plot_average_power_demand_by_temperature(dataframe: pd.DataFrame) -> None:
     plt.xlabel("Rounded Temperature")
     plt.ylabel("Average Power Demand")
     plt.tight_layout()
+    OUTPUT_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    plt.savefig(OUTPUT_FIGURES_DIR / "average_power_demand_by_temperature.png")
     plt.show()
 
 def main() -> None:
@@ -80,6 +85,8 @@ def main() -> None:
     plot_power_demand_over_time(dataset)
 
     plot_temperature_vs_power_demand(dataset)
+
+    plot_average_power_demand_by_temperature(dataset)
 
 
 if __name__ == "__main__":
