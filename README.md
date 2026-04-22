@@ -45,3 +45,18 @@ Improved model results:
 - MSE: 180.8438
 - RMSE: 13.4478
 - R²: 0.8571
+
+## How to Run the Project
+
+### 1. Create and activate a virtual environment
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+
+python3 -m pip install -r requirements.txt
+python3 src/data_generation.py
+python3 src/data_cleaning.py
+python3 src/data_analysis.py
+python3 src/modeling.py
+```
