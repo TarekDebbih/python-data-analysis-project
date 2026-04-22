@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from sklearn.model_selection import train_test_split
 import pandas as pd
 
 
@@ -20,3 +20,12 @@ def select_features_and_target(dataframe: pd.DataFrame) -> tuple[pd.DataFrame, p
     y = dataframe[target_column].copy()
 
     return X, y
+
+def split_train_test(
+    X: pd.DataFrame,
+    y: pd.Series,
+    test_size: float = 0.2,
+    random_seed: int = 42,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+    """Split features and target into training and testing sets."""
+    return train_test_split(X, y, test_size=test_size, random_state=random_seed)
