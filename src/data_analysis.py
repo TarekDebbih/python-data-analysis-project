@@ -60,6 +60,8 @@ def main() -> None:
 
     plot_power_demand_over_time(dataset)
 
+    plot_temperature_vs_power_demand(dataset)
+
 
 if __name__ == "__main__":
     main()
