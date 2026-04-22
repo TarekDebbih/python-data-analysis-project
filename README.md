@@ -26,3 +26,22 @@ The workflow includes:
 - NumPy
 - Matplotlib
 - scikit-learn
+
+## Methodology
+The project follows a simple end-to-end forecasting workflow:
+
+1. Generate a synthetic multivariate dataset related to electric power demand.
+2. Clean and preprocess the dataset.
+3. Explore the data with descriptive statistics, correlations, and visualizations.
+4. Train a baseline linear regression model.
+5. Evaluate predictions with regression metrics such as MAE, RMSE, and R².
+6. Improve the model by adding a relevant time-based feature (`day_of_year`).
+
+## Key Results
+The baseline model was improved by adding a time-based feature to better capture seasonality.
+
+Improved model results:
+- MAE: 11.3016
+- MSE: 180.8438
+- RMSE: 13.4478
+- R²: 0.8571
