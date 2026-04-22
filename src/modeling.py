@@ -47,3 +47,20 @@ def predict_with_model(
     """Generate predictions from the trained model."""
     predictions = model.predict(X_test)
     return pd.Series(predictions, index=X_test.index, name="predicted_power_demand")
+
+def evaluate_regression_model(
+    y_true: pd.Series,
+    y_pred: pd.Series,
+) -> dict[str, float]:
+    """Compute basic regression evaluation metrics."""
+    mae = mean_absolute_error(y_true, y_pred)
+    mse = mean_squared_error(y_true, y_pred)
+    rmse = mse ** 0.5
+    r2 = r2_score(y_true, y_pred)
+
+    return {
+        "mae": mae,
+        "mse": mse,
+        "rmse": rmse,
+        "r2": r2,
+    }
