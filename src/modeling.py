@@ -7,6 +7,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROCESSED_DATA_DIR = BASE_DIR / "data" / "processed"
+OUTPUT_REPORTS_DIR = BASE_DIR / "outputs" / "reports"
 
 
 def load_modeling_dataset(file_path: Path) -> pd.DataFrame:
@@ -100,6 +101,13 @@ def build_prediction_comparison(
     ).abs()
     return comparison
 
+def save_prediction_comparison_report(
+    comparison: pd.DataFrame,
+    filename: str = "prediction_comparison.csv",
+) -> None:
+    """Save the prediction comparison table to the reports directory."""
+    OUTPUT_REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    comparison.to_csv(OUTPUT_REPORTS_DIR / filename, index=False)
 
 def main() -> None:
     """Run the full modeling pipeline."""
