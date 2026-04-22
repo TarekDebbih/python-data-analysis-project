@@ -35,7 +35,7 @@ def plot_power_demand_over_time(dataframe: pd.DataFrame) -> None:
     plt.tight_layout()
     OUTPUT_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     plt.savefig(OUTPUT_FIGURES_DIR / "power_demand_over_time.png")
-    plt.show()
+    plt.close()
 
 def plot_temperature_vs_power_demand(dataframe: pd.DataFrame) -> None:
     """Plot temperature against power demand."""
@@ -47,7 +47,7 @@ def plot_temperature_vs_power_demand(dataframe: pd.DataFrame) -> None:
     plt.tight_layout()
     OUTPUT_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     plt.savefig(OUTPUT_FIGURES_DIR / "temperature_vs_power_demand.png")
-    plt.show()
+    plt.close()
 
 def plot_average_power_demand_by_temperature(dataframe: pd.DataFrame) -> None:
     """Plot average power demand by rounded temperature."""
@@ -68,7 +68,7 @@ def plot_average_power_demand_by_temperature(dataframe: pd.DataFrame) -> None:
     plt.tight_layout()
     OUTPUT_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     plt.savefig(OUTPUT_FIGURES_DIR / "average_power_demand_by_temperature.png")
-    plt.show()
+    plt.close()
 
 def main() -> None:
     """Load the cleaned dataset and display descriptive statistics."""
