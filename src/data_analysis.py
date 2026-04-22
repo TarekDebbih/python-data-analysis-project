@@ -33,6 +33,8 @@ def plot_power_demand_over_time(dataframe: pd.DataFrame) -> None:
     plt.ylabel("Power Demand")
     plt.xticks(rotation=45)
     plt.tight_layout()
+    OUTPUT_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    plt.savefig(OUTPUT_FIGURES_DIR / "power_demand_over_time.png")
     plt.show()
 
 def plot_temperature_vs_power_demand(dataframe: pd.DataFrame) -> None:
