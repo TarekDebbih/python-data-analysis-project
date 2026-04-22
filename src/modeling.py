@@ -119,6 +119,11 @@ def main() -> None:
     for metric_name, metric_value in metrics.items():
         print(f"{metric_name}: {metric_value:.4f}")
 
+    comparison = build_prediction_comparison(y_test, y_pred)
+    print()
+    print("Prediction comparison sample:")
+    print(comparison.head(10))
+
 
 if __name__ == "__main__":
     main()
