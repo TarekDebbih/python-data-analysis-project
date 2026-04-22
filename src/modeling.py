@@ -64,3 +64,24 @@ def evaluate_regression_model(
         "rmse": rmse,
         "r2": r2,
     }
+
+def main() -> None:
+    """Run the full modeling pipeline."""
+    file_path = PROCESSED_DATA_DIR / "clean_power_demand.csv"
+    dataset = load_modeling_dataset(file_path)
+
+    X, y = select_features_and_target(dataset)
+    X_train, X_test, y_train, y_test = split_train_test(X, y)
+
+    model = train_linear_regression_model(X_train, y_train)
+    y_pred = predict_with_model(model, X_test)
+
+    metrics = evaluate_regression_model(y_test, y_pred)
+
+    print("Model evaluation metrics:")
+    for metric_name, metric_value in metrics.items():
+        print(f"{metric_name}: {metric_value:.4f}")
+
+
+if __name__ == "__main__":
+    main()
