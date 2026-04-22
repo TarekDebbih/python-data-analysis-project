@@ -128,6 +128,7 @@ def main() -> None:
         print(f"{metric_name}: {metric_value:.4f}")
 
     comparison = build_prediction_comparison(y_test, y_pred)
+    save_prediction_comparison_report(comparison)
     print()
     print("Prediction comparison sample:")
     print(comparison.head(10))
